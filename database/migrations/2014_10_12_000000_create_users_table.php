@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('username')->unique();
             $table->integer('balance')->default(0);
-            $table->rememberToken();
             $table->timestamps();
         });
     }
