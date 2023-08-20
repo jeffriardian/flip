@@ -9,6 +9,7 @@ use App\Interfaces\UserInterface;
 use App\Traits\ResponseAPI;
 use App\Models\User;
 use DB;
+use JWTAuth;
 
 class UserRepository implements UserInterface
 {
@@ -23,8 +24,13 @@ class UserRepository implements UserInterface
             $user->username = $request->username;
             $user->save();
 
+            $user=User::where('username','=',$request->username)->first();
+
+            $userToken=JWTAuth::fromUser($user);
+
             DB::commit();
-            return $this->success("User created", $user, 201);
+                    
+            return $this->success("User created", $userToken, 201);
         } catch(\Exception $e) {
             DB::rollBack();
             return $this->error("Bad Request", 400);
