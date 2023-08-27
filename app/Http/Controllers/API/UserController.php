@@ -30,4 +30,9 @@ class UserController extends Controller
     {
         return $this->userInteface->topUpBalance($request);
     }
+    
+    public function transfer(Request $request)
+    {
+        return $this->userInteface->transfer($request);
+    }
 }

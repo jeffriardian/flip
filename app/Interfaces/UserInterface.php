@@ -12,6 +12,8 @@ interface UserInterface
     public function getBalance();
 
     public function topUpBalance(Request $request);
+    
+    public function transfer(Request $request);
 
     public function guard();
 }

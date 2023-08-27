@@ -63,6 +63,31 @@ class UserRepository implements UserInterface
                     
             return response()->json("Topup successful", 204);
         } catch(\Exception $e) {
+            DB::rollBack();
+            return $this->error("Invalid topup amount", 400);
+        }
+    }
+    
+    public function transfer(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $username = Auth::user()->username;
+            $balance = Auth::user()->balance;
+
+            $user=User::where('username','=',$username)->first();
+            $user->balance = $balance - $request->amount;
+            $user->save();
+
+            $user1=User::where('username','=',$request->to_username)->first();
+            $user1->balance = $user1->balance + $request->amount;
+            $user1->save();
+
+            DB::commit();
+                    
+            return response()->json("Transfer success", 204);
+        } catch(\Exception $e) {
+            DB::rollBack();
             return $this->error("Invalid topup amount", 400);
         }
     }
