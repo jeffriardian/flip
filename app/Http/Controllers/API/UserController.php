@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+use App\Http\Requests\DataRequest;
 use App\Interfaces\UserInterface;
 
 class UserController extends Controller
@@ -26,12 +27,12 @@ class UserController extends Controller
         return $this->userInteface->getBalance();
     }
     
-    public function topUpBalance(Request $request)
+    public function topUpBalance(DataRequest $request)
     {
         return $this->userInteface->topUpBalance($request);
     }
     
-    public function transfer(Request $request)
+    public function transfer(DataRequest $request)
     {
         return $this->userInteface->transfer($request);
     }

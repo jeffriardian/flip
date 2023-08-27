@@ -3,8 +3,9 @@
 namespace App\Repositories;
 
 //use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
+//use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+use App\Http\Requests\DataRequest;
 use App\Interfaces\UserInterface;
 use App\Traits\ResponseAPI;
 use App\Models\User;
@@ -49,7 +50,7 @@ class UserRepository implements UserInterface
         }
     }
     
-    public function topUpBalance(Request $request)
+    public function topUpBalance(DataRequest $request)
     {
         DB::beginTransaction();
         try {
@@ -76,7 +77,7 @@ class UserRepository implements UserInterface
         }
     }
     
-    public function transfer(Request $request)
+    public function transfer(DataRequest $request)
     {
         DB::beginTransaction();
         try {

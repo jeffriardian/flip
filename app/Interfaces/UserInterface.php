@@ -3,7 +3,7 @@
 namespace App\Interfaces;
 
 use App\Http\Requests\UserRequest;
-use Illuminate\Http\Request;
+use App\Http\Requests\DataRequest;
 
 interface UserInterface
 {
@@ -11,9 +11,9 @@ interface UserInterface
 
     public function getBalance();
 
-    public function topUpBalance(Request $request);
+    public function topUpBalance(DataRequest $request);
     
-    public function transfer(Request $request);
+    public function transfer(DataRequest $request);
     
     public function topUser();
     
