@@ -25,4 +25,9 @@ class UserController extends Controller
     {
         return $this->userInteface->getBalance();
     }
+    
+    public function topUpBalance(Request $request)
+    {
+        return $this->userInteface->topUpBalance($request);
+    }
 }

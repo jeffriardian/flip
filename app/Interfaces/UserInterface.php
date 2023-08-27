@@ -3,6 +3,7 @@
 namespace App\Interfaces;
 
 use App\Http\Requests\UserRequest;
+use Illuminate\Http\Request;
 
 interface UserInterface
 {
@@ -10,11 +11,7 @@ interface UserInterface
 
     public function getBalance();
 
-    /*public function login(LoginRequest $request);
-
-    public function logout();
-
-    public function refresh();*/
+    public function topUpBalance(Request $request);
 
     public function guard();
 }
