@@ -60,6 +60,13 @@ class UserRepository implements UserInterface
             $user->balance = $balance + $request->amount;
             $user->save();
 
+            $topup = new HistoryTransaction;
+            $topup->username = $username;
+            $topup->amount = $request->amount;
+            $topup->status = "top up";
+            $topup->username1 = $username;
+            $topup->save();
+
             DB::commit();
                     
             return response()->json("Topup successful", 204);
@@ -83,6 +90,9 @@ class UserRepository implements UserInterface
                 return $this->error("Insufficient balance", 400);
 
             if ($user1 == "")
+                return $this->error("Destination user not found", 404);
+
+            if ($user == $user1)
                 return $this->error("Destination user not found", 404);
             
             $user->balance = $balance - $request->amount;
