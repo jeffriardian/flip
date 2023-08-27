@@ -44,7 +44,7 @@ class UserRepository implements UserInterface
 
             return response()->json([ 'balance' => $data ], 200);      
         } catch(\Exception $e) {
-            return $this->error("Unauthorized user", 401);
+            return $this->error("Bad Request", 400);
         }
     }
     
@@ -61,7 +61,7 @@ class UserRepository implements UserInterface
 
             DB::commit();
                     
-            return response()->json(204);
+            return response()->json("Topup successful", 204);
         } catch(\Exception $e) {
             DB::rollBack();
             return $this->error("Invalid topup amount", 400);
@@ -94,7 +94,7 @@ class UserRepository implements UserInterface
             return response()->json("Transfer success", 204);
         } catch(\Exception $e) {
             DB::rollBack();
-            return $this->error("Invalid topup amount", 400);
+            return $this->error("Bad Request", 400);
         }
     }
 
