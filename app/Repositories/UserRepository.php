@@ -61,7 +61,7 @@ class UserRepository implements UserInterface
 
             DB::commit();
                     
-            return response()->json("Topup successful", 204);
+            return response()->json(204);
         } catch(\Exception $e) {
             DB::rollBack();
             return $this->error("Invalid topup amount", 400);
@@ -76,10 +76,16 @@ class UserRepository implements UserInterface
             $balance = Auth::user()->balance;
 
             $user=User::where('username','=',$username)->first();
+            $user1=User::where('username','=',$request->to_username)->first();
+
+            if ($balance <= $request->amount)
+                return response()->json("Insufficient balance", 400);
+
+            if ($user1 == "")
+                return response()->json("Destination user not found", 404);
+            
             $user->balance = $balance - $request->amount;
             $user->save();
-
-            $user1=User::where('username','=',$request->to_username)->first();
             $user1->balance = $user1->balance + $request->amount;
             $user1->save();
 
