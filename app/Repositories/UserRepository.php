@@ -100,19 +100,19 @@ class UserRepository implements UserInterface
             $user1->balance = $user1->balance + $request->amount;
             $user1->save();
 
-            $credit = new HistoryTransaction;
-            $credit->username = $username;
-            $credit->amount = $request->amount;
-            $credit->status = "credit";
-            $credit->username1 = $user1->username;
-            $credit->save();
-
             $debit = new HistoryTransaction;
-            $debit->username = $user1->username;
+            $debit->username = $username;
             $debit->amount = $request->amount;
             $debit->status = "debit";
-            $debit->username1 = $username;
+            $debit->username1 = $user1->username;
             $debit->save();
+
+            $credit = new HistoryTransaction;
+            $credit->username = $user1->username;
+            $credit->amount = $request->amount;
+            $credit->status = "credit";
+            $credit->username1 = $username;
+            $credit->save();
 
             DB::commit();
                     
