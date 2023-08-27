@@ -40,4 +40,9 @@ class UserController extends Controller
     {
         return $this->userInteface->topUser();
     }
+    
+    public function topTransactionUser()
+    {
+        return $this->userInteface->topTransactionUser();
+    }
 }

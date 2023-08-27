@@ -16,6 +16,8 @@ interface UserInterface
     public function transfer(Request $request);
     
     public function topUser();
+    
+    public function topTransactionUser();
 
     public function guard();
 }
