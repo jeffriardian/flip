@@ -27,25 +27,24 @@ class UserRepository implements UserInterface
 
             $user=User::where('username','=',$request->username)->first();
 
-            $userToken=JWTAuth::fromUser($user);
+            $token=JWTAuth::fromUser($user);
 
             DB::commit();
-                    
-            return $this->tokenUser($userToken, 201);
+            
+            return response()->json([ 'token' => $token ], 201);
         } catch(\Exception $e) {
             DB::rollBack();
-            return $this->error(400);
+            return $this->error("Bad Request", 400);
         }
     }
 
     public function getBalance() {
         try {
             $data = Auth::user()->balance;
-                    
-            return $this->userBalance($data, 201);
+
+            return response()->json([ 'balance' => $data ], 200);      
         } catch(\Exception $e) {
-            DB::rollBack();
-            return $this->error(400);
+            return $this->error("Unauthorized user", 401);
         }
     }
     
@@ -62,10 +61,9 @@ class UserRepository implements UserInterface
 
             DB::commit();
                     
-            return $this->topUp(204);
+            return response()->json("Topup successful", 204);
         } catch(\Exception $e) {
-            DB::rollBack();
-            return $this->error(400);
+            return $this->error("Invalid topup amount", 400);
         }
     }
 
