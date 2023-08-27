@@ -31,7 +31,7 @@ class UserRepository implements UserInterface
 
             DB::commit();
                     
-            return $this->success("User created", $userToken, 201);
+            return $this->tokenUser("User created", $userToken, 201);
         } catch(\Exception $e) {
             DB::rollBack();
             return $this->error("Bad Request", 400);
@@ -42,7 +42,7 @@ class UserRepository implements UserInterface
         try {
             $data = Auth::user()->balance;
                     
-            return $this->success("User created", $data, 201);
+            return $this->userBalance("User balance", $data, 201);
         } catch(\Exception $e) {
             DB::rollBack();
             return $this->error("Bad Request", 400);
