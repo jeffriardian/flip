@@ -79,10 +79,10 @@ class UserRepository implements UserInterface
             $user1=User::where('username','=',$request->to_username)->first();
 
             if ($balance <= $request->amount)
-                return response()->json("Insufficient balance", 400);
+                return $this->error("Insufficient balance", 400);
 
             if ($user1 == "")
-                return response()->json("Destination user not found", 404);
+                return $this->error("Destination user not found", 404);
             
             $user->balance = $balance - $request->amount;
             $user->save();
