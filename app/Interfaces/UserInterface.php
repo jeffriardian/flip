@@ -8,6 +8,8 @@ interface UserInterface
 {
     public function register(UserRequest $request);
 
+    public function getBalance();
+
     /*public function login(LoginRequest $request);
 
     public function logout();

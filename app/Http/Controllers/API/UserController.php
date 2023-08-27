@@ -18,6 +18,11 @@ class UserController extends Controller
     
     public function register(UserRequest $request)
     {
-        return $this->userInteface->register( $request);
+        return $this->userInteface->register($request);
+    }
+    
+    public function getBalance()
+    {
+        return $this->userInteface->getBalance();
     }
 }
