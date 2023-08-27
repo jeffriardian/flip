@@ -8,6 +8,7 @@ use App\Http\Requests\UserRequest;
 use App\Interfaces\UserInterface;
 use App\Traits\ResponseAPI;
 use App\Models\User;
+use App\Models\HistoryTransaction;
 use DB;
 use JWTAuth;
 use Auth;
@@ -88,6 +89,20 @@ class UserRepository implements UserInterface
             $user->save();
             $user1->balance = $user1->balance + $request->amount;
             $user1->save();
+
+            $credit = new HistoryTransaction;
+            $credit->username = $username;
+            $credit->amount = $request->amount;
+            $credit->status = "credit";
+            $credit->username1 = $user1->username;
+            $credit->save();
+
+            $debit = new HistoryTransaction;
+            $debit->username = $user1->username;
+            $debit->amount = $request->amount;
+            $debit->status = "debit";
+            $debit->username1 = $username;
+            $debit->save();
 
             DB::commit();
                     
