@@ -35,4 +35,9 @@ class UserController extends Controller
     {
         return $this->userInteface->transfer($request);
     }
+    
+    public function topUser()
+    {
+        return $this->userInteface->topUser();
+    }
 }

@@ -14,6 +14,8 @@ interface UserInterface
     public function topUpBalance(Request $request);
     
     public function transfer(Request $request);
+    
+    public function topUser();
 
     public function guard();
 }

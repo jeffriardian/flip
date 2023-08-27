@@ -123,6 +123,20 @@ class UserRepository implements UserInterface
         }
     }
 
+    public function topUser() {
+        try {
+            $data = HistoryTransaction::where('status', "debit")
+                ->selectRaw('username, SUM(amount) AS transacted_value')
+                ->groupBy('username')
+                ->orderBy('amount','desc')
+                ->skip(0)->take(10)->get();                
+
+            return response()->json($data, 200);      
+        } catch(\Exception $e) {
+            return $this->error("Bad Request", 400);
+        }
+    }
+
     public function guard()
     {
         return User::guard();

@@ -23,4 +23,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::get('user-balance', [UserController::class, 'getBalance'])->middleware('jwt.verify');
     Route::patch('topup-balance', [UserController::class, 'topUpBalance'])->middleware('jwt.verify');
     Route::post('transfer', [UserController::class, 'transfer'])->middleware('jwt.verify');
+    Route::get('top-users', [UserController::class, 'topUser'])->middleware('jwt.verify');
 //});
